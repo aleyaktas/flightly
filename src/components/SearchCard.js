@@ -1,6 +1,6 @@
 const SearchCard = () => {
   return (
-    <div className="flex flex-col gap-4 w-64">
+    <div className="flex flex-col gap-4 w-64 mt-20">
       <p className="font-bold text-lg">Your Search</p>
       <div>
         <label for="from" className="block text-sm font-medium text-gray-700">
