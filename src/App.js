@@ -1,30 +1,11 @@
-import "./App.css";
+import React, { useState } from "react";
 import FlightCard from "./components/FlightCard";
 import SearchCard from "./components/SearchCard";
+import { mockFlights } from "./api/mockApi";
+import "./App.css";
 
 function App() {
-  const flightDetails = [
-    {
-      date: "June 10, 2023",
-      type: "Departure",
-      departureTime: "10:45",
-      arrivalTime: "13:55",
-      departureAirport: { name: "London Stansted", code: "STN" },
-      arrivalAirport: { name: "Stockholm Arlanda", code: "ARN" },
-      duration: "2h 10m",
-      direct: true,
-    },
-    {
-      date: "August 18, 2023",
-      type: "Return",
-      departureTime: "16:20",
-      arrivalTime: "17:55",
-      departureAirport: { name: "Stockholm Arlanda", code: "ARN" },
-      arrivalAirport: { name: "London Stansted", code: "STN" },
-      duration: "2h 10m",
-      direct: true,
-    },
-  ];
+  const [flights, setFlights] = useState(mockFlights);
 
   return (
     <div className="w-full h-screen overflow-auto bg-zinc-100">
@@ -32,12 +13,18 @@ function App() {
         <p className="text-teal-700 font-bold text-3xl ml-12">Flightly</p>
       </nav>
       <div className="flex gap-10 mx-20">
-        <SearchCard />
+        <SearchCard
+          onSearch={(selectedFlight) => console.log(selectedFlight)}
+        />
         <div className="flex flex-col gap-8 w-full">
           <p className="ml-auto text-gray-500">Sort by</p>
-          <div className="flex flex-col bg-white w-full rounded-md">
-            <div className="container mx-auto mt-10">
-              <FlightCard flights={flightDetails} />
+          <div className="container mx-auto mt-10">
+            <div className="flex flex-col gap-8 w-full rounded-md">
+              {flights.map((flight, index) => (
+                <React.Fragment key={index}>
+                  <FlightCard flight={flight} />
+                </React.Fragment>
+              ))}
             </div>
           </div>
         </div>

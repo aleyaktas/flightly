@@ -1,40 +1,72 @@
-const SearchCard = () => {
+import React, { useState } from "react";
+import { mockFlights as allAirports } from "../api/mockApi";
+
+const SearchCard = ({ onSearch }) => {
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    onSearch({
+      from,
+      to,
+      departureDate,
+      returnDate,
+    });
+  };
+
   return (
-    <div className="flex flex-col gap-4 w-64 mt-20">
+    <form onSubmit={handleSearch} className="flex flex-col gap-4 w-64 mt-20">
       <p className="font-bold text-lg">Your Search</p>
+
       <div>
-        <label for="from" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="from"
+          className="block text-sm font-medium text-gray-700"
+        >
           From
         </label>
         <select
           id="from"
           name="from"
+          value={from}
+          onChange={(e) => setFrom(e.target.value)}
           className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
         >
           <option value="">Select City</option>
-          <option value="city1">City 1</option>
-          <option value="city2">City 2</option>
+          {allAirports.map((airport, index) => (
+            <option key={index} value={airport.code}>
+              {airport.city} ({airport.code})
+            </option>
+          ))}
         </select>
       </div>
 
       <div>
-        <label for="to" class="block text-sm font-medium text-gray-700">
+        <label htmlFor="to" className="block text-sm font-medium text-gray-700">
           To
         </label>
         <select
           id="to"
           name="to"
+          value={to}
+          onChange={(e) => setTo(e.target.value)}
           className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
         >
           <option value="">Select City</option>
-          <option value="city1">City 1</option>
-          <option value="city2">City 2</option>
+          {allAirports.map((airport, index) => (
+            <option key={index} value={airport.code}>
+              {airport.city} ({airport.code})
+            </option>
+          ))}
         </select>
       </div>
 
       <div>
         <label
-          for="departure"
+          htmlFor="departure"
           className="block text-sm font-medium text-gray-700"
         >
           Departure
@@ -43,25 +75,36 @@ const SearchCard = () => {
           type="date"
           id="departure"
           name="departure"
-          className="mt-1 block w-full h-12 ouline-none border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
+          value={departureDate}
+          onChange={(e) => setDepartureDate(e.target.value)}
+          className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
         />
       </div>
 
       <div>
-        <label for="return" class="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="return"
+          className="block text-sm font-medium text-gray-700"
+        >
           Return
         </label>
         <input
           type="date"
           id="return"
           name="return"
-          className="mt-1 block w-full h-12 outline-none border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
+          value={returnDate}
+          onChange={(e) => setReturnDate(e.target.value)}
+          className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
         />
       </div>
-      <button className="bg-teal-800 text-white h-12 text-center rounded-md shadow-sm hover:bg-teal-900">
+
+      <button
+        type="submit"
+        className="bg-teal-800 text-white h-12 text-center rounded-md shadow-sm hover:bg-teal-900"
+      >
         Search
       </button>
-    </div>
+    </form>
   );
 };
 
