@@ -1,26 +1,34 @@
-import React, { useState } from "react";
-import { mockFlights as allAirports } from "../api/mockApi";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { turkishAirports } from "../api/mockApi";
 
 const SearchCard = ({ onSearch }) => {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [departureDate, setDepartureDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
+  const [oneWay, setOneWay] = useState(false);
+  const [today, setToday] = useState();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    onSearch({
-      from,
-      to,
-      departureDate,
-      returnDate,
-    });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm();
+
+  useEffect(() => {
+    const todayFormatted = new Date().toISOString().split("T")[0];
+    setToday(todayFormatted);
+  }, []);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    onSearch(data);
   };
 
   return (
-    <form onSubmit={handleSearch} className="flex flex-col gap-4 w-64 mt-20">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-4 w-64 mt-20"
+    >
       <p className="font-bold text-lg">Your Search</p>
-
       <div>
         <label
           htmlFor="from"
@@ -31,17 +39,19 @@ const SearchCard = ({ onSearch }) => {
         <select
           id="from"
           name="from"
-          value={from}
-          onChange={(e) => setFrom(e.target.value)}
+          {...register("from", { required: "Please select a city" })}
           className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
         >
           <option value="">Select City</option>
-          {allAirports.map((airport, index) => (
+          {turkishAirports.map((airport, index) => (
             <option key={index} value={airport.code}>
               {airport.city} ({airport.code})
             </option>
           ))}
         </select>
+        {errors.from && (
+          <span className="text-red-500 text-sm">{errors.from.message}</span>
+        )}
       </div>
 
       <div>
@@ -51,17 +61,35 @@ const SearchCard = ({ onSearch }) => {
         <select
           id="to"
           name="to"
-          value={to}
-          onChange={(e) => setTo(e.target.value)}
+          {...register("to", { required: "Please select a city" })}
           className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
         >
           <option value="">Select City</option>
-          {allAirports.map((airport, index) => (
+          {turkishAirports.map((airport, index) => (
             <option key={index} value={airport.code}>
               {airport.city} ({airport.code})
             </option>
           ))}
         </select>
+        {errors.to && (
+          <span className="text-red-500 text-sm">{errors.to.message}</span>
+        )}
+      </div>
+
+      <div className="flex items-center">
+        <input
+          id="one-way"
+          type="checkbox"
+          checked={oneWay}
+          onChange={() => setOneWay(!oneWay)}
+          className="w-4 h-4 bg-gray-100 border-gray-300 rounded "
+        />
+        <label
+          htmlFor="one-way"
+          className="ml-2 block text-sm font-medium text-gray-700"
+        >
+          One way
+        </label>
       </div>
 
       <div>
@@ -74,29 +102,50 @@ const SearchCard = ({ onSearch }) => {
         <input
           type="date"
           id="departure"
-          name="departure"
-          value={departureDate}
-          onChange={(e) => setDepartureDate(e.target.value)}
+          name="departureDate"
+          min={today}
+          {...register("departureDate", {
+            required: "Please select a departure date",
+            validate: (value) =>
+              new Date(value) >= new Date() ||
+              "Departure date must be today or in the future",
+          })}
           className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
         />
+        {errors.departureDate && (
+          <span className="text-red-500 text-sm">
+            {errors.departureDate.message}
+          </span>
+        )}
       </div>
 
-      <div>
-        <label
-          htmlFor="return"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Return
-        </label>
-        <input
-          type="date"
-          id="return"
-          name="return"
-          value={returnDate}
-          onChange={(e) => setReturnDate(e.target.value)}
-          className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
-        />
-      </div>
+      {!oneWay && (
+        <div>
+          <label
+            htmlFor="return"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Return
+          </label>
+          <input
+            type="date"
+            id="return"
+            name="returnDate"
+            min={getValues("departureDate") || today}
+            {...register("returnDate", {
+              validate: (value) =>
+                new Date(value) >= new Date(getValues("departureDate")) ||
+                "Return date must be equal to or after departure date",
+            })}
+            className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
+          />
+          {errors.returnDate && (
+            <span className="text-red-500 text-sm">
+              {errors.returnDate.message}
+            </span>
+          )}
+        </div>
+      )}
 
       <button
         type="submit"
