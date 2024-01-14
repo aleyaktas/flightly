@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FlightCard from "./components/FlightCard";
 import SearchCard from "./components/SearchCard";
 import { mockFlights } from "./api/mockApi";
@@ -8,8 +8,9 @@ function App() {
   const [flights, setFlights] = useState([]);
   const [goingFlights, setGoingFlights] = useState([]);
   const [returnFlights, setReturnFlights] = useState([]);
-  const [oneWay, setOneWay] = useState(true);
-  const [departure, setDeparture] = useState(true);
+  const [oneWay, setOneWay] = useState(false);
+  const [selectedGoingFlight, setSelectedGoingFlight] = useState({});
+  const [selectedReturnFlight, setSelectedReturnFlight] = useState({});
 
   const filterFlights = (data, isReturnFlight = false) => {
     const airportFrom = isReturnFlight ? data.to : data.from;
@@ -23,17 +24,9 @@ function App() {
         new Date(
           isReturnFlight ? data.returnDate : data.departureDate
         ).toLocaleDateString();
-      const isMatchingDirect = isReturnFlight
-        ? true
-        : data.returnDate === ""
-        ? flight.direct
-        : true;
 
       return (
-        isMatchingDeparture &&
-        isMatchingArrival &&
-        isMatchingDepartureDate &&
-        isMatchingDirect
+        isMatchingDeparture && isMatchingArrival && isMatchingDepartureDate
       );
     });
   };
@@ -41,7 +34,6 @@ function App() {
   const handleSearch = (data) => {
     const filteredGoingFlights = filterFlights(data);
     setGoingFlights(filteredGoingFlights);
-
     if (data.returnDate !== "") {
       const filteredReturnFlights = filterFlights(data, true);
       setReturnFlights(filteredReturnFlights);
@@ -50,15 +42,13 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    if (departure && oneWay) {
-      setFlights(goingFlights);
-    } else if (!departure && !oneWay) {
-      setFlights(returnFlights);
-    } else if (departure && !oneWay) {
-      setFlights(goingFlights);
+  const handleSelect = (flight) => {
+    if (!oneWay && !selectedGoingFlight.id) {
+      setSelectedGoingFlight(flight);
+    } else if (!oneWay && selectedGoingFlight.id) {
+      setSelectedReturnFlight(flight);
     }
-  }, [departure, goingFlights, oneWay, returnFlights]);
+  };
 
   return (
     <div className="w-full h-screen overflow-auto bg-zinc-100">
@@ -74,39 +64,38 @@ function App() {
         <div className="flex flex-col gap-2 w-full">
           <p className="ml-auto text-gray-500">Sort by</p>
           <div className="container mx-auto">
-            <div className="flex gap-2 justify-center py-4">
-              <button
-                className={`px-4 py-2 rounded-md ${
-                  departure
-                    ? "bg-teal-500 text-white"
-                    : "bg-white text-teal-800"
-                }`}
-                onClick={() => setDeparture(true)}
-              >
-                Departure
-              </button>
-              <button
-                className={`px-4 py-2 rounded-md ${
-                  !departure
-                    ? "bg-teal-500 text-white"
-                    : "bg-white text-teal-800"
-                }`}
-                disabled={oneWay}
-                onClick={() => setDeparture(false)}
-              >
-                Return
-              </button>
+            <div className="py-2 rounded-t-md w-full bg-teal-700 text-center text-white font-bold">
+              {!selectedGoingFlight.id ? "Departure Flights" : "Return Flights"}
             </div>
             <div className="flex flex-col gap-8 w-full rounded-md">
-              {flights.length > 0 ? (
-                flights.map((flight, index) => (
-                  <React.Fragment key={index}>
-                    <FlightCard flight={flight} />
-                  </React.Fragment>
-                ))
-              ) : (
-                <div className="bg-white h-52"> Flights not find </div>
+              {selectedGoingFlight.id && (
+                <FlightCard
+                  flight={selectedGoingFlight}
+                  onRemove={() =>
+                    !selectedReturnFlight.id && setSelectedGoingFlight({})
+                  }
+                />
               )}
+              {selectedReturnFlight.id && (
+                <FlightCard
+                  flight={selectedReturnFlight}
+                  onRemove={() => setSelectedReturnFlight({})}
+                />
+              )}
+              {!selectedGoingFlight.id &&
+                goingFlights.map((flight, index) => (
+                  <React.Fragment key={index}>
+                    <FlightCard flight={flight} onSelect={handleSelect} />
+                  </React.Fragment>
+                ))}
+              {!oneWay &&
+                selectedGoingFlight.id &&
+                !selectedReturnFlight.id &&
+                returnFlights.map((flight, index) => (
+                  <React.Fragment key={index}>
+                    <FlightCard flight={flight} onSelect={handleSelect} />
+                  </React.Fragment>
+                ))}
             </div>
           </div>
         </div>

@@ -1,8 +1,10 @@
+import PropTypes from "prop-types";
 import Airplane from "../assets/images/airplane.png";
 import AnadoluJetImage from "../assets/images/AnadoluJet.png";
 import PegasusImage from "../assets/images/Pegasus.png";
 import SunExpressImage from "../assets/images/SunExpress.png";
 import TurkishAirlinesImage from "../assets/images/TurkishAirlines.png";
+import { ReactComponent as CloseIcon } from "../assets/icons/Close.svg";
 
 const airlineImageMap = {
   AnadoluJet: AnadoluJetImage,
@@ -11,7 +13,7 @@ const airlineImageMap = {
   "Turkish Airlines": TurkishAirlinesImage,
 };
 
-const FlightCard = ({ flight }) => {
+const FlightCard = ({ flight, onSelect, onRemove }) => {
   const {
     departureTime,
     arrivalTime,
@@ -19,14 +21,21 @@ const FlightCard = ({ flight }) => {
     arrivalAirport,
     airline,
     duration,
-    direct,
     price,
   } = flight;
 
   const airlineImageUrl = airlineImageMap[airline];
 
   return (
-    <div className="w-full bg-white shadow-md rounded-lg px-8 py-12 flex items-center justify-center">
+    <div
+      className="w-full bg-white shadow-md rounded-lg px-14 py-12 flex items-center justify-center cursor-pointer relative"
+      onClick={() => onSelect && onSelect(flight)}
+    >
+      {onRemove && (
+        <button className="absolute top-2 right-2" onClick={onRemove}>
+          <CloseIcon className="w-6 h-6 text-red-500 hover:text-red-700" />
+        </button>
+      )}
       <div className="flex gap-2  w-1/3 items-center">
         {airlineImageUrl && (
           <img
@@ -45,7 +54,6 @@ const FlightCard = ({ flight }) => {
           <div className="text-sm text-gray-600">{departureAirport}</div>
         </div>
         <div className="flex flex-col justify-center items-center">
-          <p>{direct ? "Direct" : "Undirect"}</p>
           <div className="flex items-center">
             <hr className="border-t border-gray-300 mx-2 w-16" />
             <img src={Airplane} className="text-yellow-500 w-6 h-6" />
@@ -60,9 +68,17 @@ const FlightCard = ({ flight }) => {
           <div className="text-sm text-gray-600">{arrivalAirport}</div>
         </div>
       </div>
-      <p className="font-bold text-red-400 text-xl w-1/3 text-end">{price} ₺</p>
+      <p className="font-bold text-rose-800 text-xl w-1/3 text-end">
+        {price} ₺
+      </p>
     </div>
   );
 };
 
 export default FlightCard;
+
+FlightCard.propTypes = {
+  flight: PropTypes.object.isRequired,
+  onSelect: PropTypes.func,
+  onRemove: PropTypes.func,
+};

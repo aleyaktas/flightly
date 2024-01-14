@@ -16,7 +16,6 @@ export const mockFlights = [
     duration: "9h 10m",
     price: 1200,
     airline: "Turkish Airlines",
-    direct: true,
   },
   {
     id: 2,
@@ -27,7 +26,6 @@ export const mockFlights = [
     duration: "11h 15m",
     price: 900,
     airline: "SunExpress",
-    direct: false,
   },
   {
     id: 3,
@@ -38,7 +36,6 @@ export const mockFlights = [
     duration: "11h 30m",
     price: 1100,
     airline: "Pegasus Airlines",
-    direct: true,
   },
   {
     id: 4,
@@ -49,7 +46,6 @@ export const mockFlights = [
     duration: "9h 15m",
     price: 950,
     airline: "Turkish Airlines",
-    direct: false,
   },
   {
     id: 5,
@@ -60,7 +56,6 @@ export const mockFlights = [
     duration: "14h",
     price: 1300,
     airline: "AnadoluJet",
-    direct: true,
   },
   {
     id: 6,
@@ -71,7 +66,6 @@ export const mockFlights = [
     duration: "14h",
     price: 1300,
     airline: "SunExpress",
-    direct: true,
   },
   {
     id: 7,
@@ -82,7 +76,6 @@ export const mockFlights = [
     duration: "14h",
     price: 1300,
     airline: "Pegasus Airlines",
-    direct: true,
   },
   {
     id: 8,
@@ -93,7 +86,6 @@ export const mockFlights = [
     duration: "1h 15m",
     price: 200,
     airline: "AnadoluJet",
-    direct: true,
   },
   {
     id: 9,
@@ -104,7 +96,6 @@ export const mockFlights = [
     duration: "1h 15m",
     price: 180,
     airline: "SunExpress",
-    direct: false,
   },
   {
     id: 10,
@@ -115,7 +106,6 @@ export const mockFlights = [
     duration: "1h 15m",
     price: 250,
     airline: "Turkish Airlines",
-    direct: true,
   },
   {
     id: 11,
@@ -126,7 +116,6 @@ export const mockFlights = [
     duration: "1h 15m",
     price: 220,
     airline: "Pegasus Airlines",
-    direct: true,
   },
   {
     id: 12,
@@ -137,7 +126,6 @@ export const mockFlights = [
     duration: "1h 15m",
     price: 190,
     airline: "Turkish Airlines",
-    direct: false,
   },
   {
     id: 13,
@@ -148,6 +136,25 @@ export const mockFlights = [
     duration: "1h 15m",
     price: 210,
     airline: "AnadoluJet",
-    direct: true,
+  },
+  {
+    id: 14,
+    departureAirport: "ESB",
+    arrivalAirport: "IST",
+    departureTime: "2024-07-01T15:30",
+    arrivalTime: "2024-07-01T16:45",
+    duration: "1h 15m",
+    price: 190,
+    airline: "Turkish Airlines",
+  },
+  {
+    id: 15,
+    departureAirport: "IST",
+    arrivalAirport: "ESB",
+    departureTime: "2024-07-05T21:45",
+    arrivalTime: "2024-07-05T23:00",
+    duration: "1h 15m",
+    price: 210,
+    airline: "AnadoluJet",
   },
 ];

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { turkishAirports } from "../api/mockApi";
 
@@ -156,3 +157,9 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
 };
 
 export default SearchCard;
+
+SearchCard.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+  oneWay: PropTypes.bool.isRequired,
+  setOneWay: PropTypes.func.isRequired,
+};
