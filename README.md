@@ -27,6 +27,14 @@ Technologies used when deploying the site:
 ## Live Demo
 [https://flightly.aleynaaktas.com](https://flightly.aleynaaktas.com/)
 
+## To try the project in live demo
+
+When searching, you can search with the following information
+- From: Eskişehir (ESB)
+- To: İstanbul (IST)
+- Departure date: 01.07.2024
+- Return date: 05.07.2024
+
 ## Images
 
 ****
