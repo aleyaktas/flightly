@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# FLIGHTLY
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can search for a one-way or round-trip flight on this site. You can filter listed flights and select tickets. You can buy your tickets after selecting them.
 
-## Available Scripts
+## Technologies
 
-In the project directory, you can run:
+**Frontend:** HTML, CSS, JavaScript, React
 
-### `npm start`
+**Server:** AWS
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Used Libraries
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Client:**
+- react-hook-form
+- react-select
+- react-toastify
+- tailwindcss
 
-### `npm test`
+## Used Tech Stack For Deployment
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Technologies used when deploying the site:
 
-### `npm run build`
+- AWS EC2
+- OpenLiteSpeed
+- CyberPanel
+- Natro
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Live Demo
+[https://flightly.aleynaaktas.com](https://flightly.aleynaaktas.com/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Images
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+****
+<img width="800" alt="1" src="https://github.com/aleyaktas/flightly/assets/76265779/db90c0a5-3f9a-422c-aca6-609165dad2cc">
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+****
+<img width="800" alt="2" src="https://github.com/aleyaktas/flightly/assets/76265779/12a2ad0f-31a4-47cb-9ff2-85cac23fe00f">
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+****
+<img width="800" alt="3" src="https://github.com/aleyaktas/flightly/assets/76265779/30377571-6f0e-4be4-9c6b-7aa3147d43ee">
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+****
+<img width="800" alt="4" src="https://github.com/aleyaktas/flightly/assets/76265779/ed03b5af-634b-4764-8f20-550aaf011898">
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Mobile Images
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+****
+<div style="display: flex; flex-direction: row;">
 
-### Code Splitting
+<img width="200" alt="5" src="https://github.com/aleyaktas/flightly/assets/76265779/d9dc879d-3098-4090-835c-ad3f6883d311">
+<img width="200" alt="6" src="https://github.com/aleyaktas/flightly/assets/76265779/fa3fd850-985a-4ba9-b39a-04b58df5ec0f">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+</div>
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## Run Your Local
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+To clone this project:
+```bash
+  https://github.com/aleyaktas/flightly.git
+```
+To make necessary downloads for project:
+```bash
+  npm install
+```
+To run project:
+```bash 
+  npm start
+```
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
