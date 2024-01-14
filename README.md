@@ -4,13 +4,12 @@ You can search for a one-way or round-trip flight on this site. You can filter l
 
 ## Technologies
 
-**Frontend:** HTML, CSS, JavaScript, React
+**Frontend:** HTML, CSS, JavaScript, React, Tailwind
 
 **Server:** AWS
 
 ## Used Libraries
 
-**Client:**
 - react-hook-form
 - react-select
 - react-toastify
