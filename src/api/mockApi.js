@@ -151,11 +151,3 @@ export const mockFlights = [
     direct: true,
   },
 ];
-
-export const searchAirports = (query) => {
-  return turkishAirports.filter(
-    (airport) =>
-      airport.code.toLowerCase().includes(query.toLowerCase()) ||
-      airport.city.toLowerCase().includes(query.toLowerCase())
-  );
-};

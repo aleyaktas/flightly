@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { turkishAirports } from "../api/mockApi";
 
-const SearchCard = ({ onSearch }) => {
-  const [oneWay, setOneWay] = useState(false);
+const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
   const [today, setToday] = useState();
 
   const {
@@ -19,8 +18,7 @@ const SearchCard = ({ onSearch }) => {
   }, []);
 
   const onSubmit = (data) => {
-    console.log(data);
-    onSearch(data);
+    onSearch(data, oneWay);
   };
 
   return (
