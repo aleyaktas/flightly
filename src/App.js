@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { ReactComponent as NotFound } from "./assets/icons/NotFound.svg";
-import FlightCard from "./components/FlightCard";
-import SearchCard from "./components/SearchCard";
-import { mockFlights } from "./api/mockApi";
-import "./App.css";
-import { showMessage } from "./helpers/showMessage";
-import DropdownMenu from "./components/Dropdown";
 import Loading from "./assets/gifs/loading.gif";
+import { mockFlights } from "./api/mockApi";
+import FlightCard from "./components/FlightCard";
+import FilterDropdown from "./components/FilterDropdown";
+import SearchCard from "./components/SearchCard";
+import { showMessage } from "./helpers/showMessage";
+import "./App.css";
+import { sortFlights } from "./helpers/sortFlights";
 
 function App() {
   const [goingFlights, setGoingFlights] = useState([]);
@@ -77,45 +78,18 @@ function App() {
     }
   };
 
-  const sortByDepartureTime = (a, b) =>
-    new Date(a.departureTime) - new Date(b.departureTime);
-  const sortByArrivalTime = (a, b) =>
-    new Date(a.arrivalTime) - new Date(b.arrivalTime);
-  const sortByDuration = (a, b) =>
-    getDurationInMinutes(a.duration) - getDurationInMinutes(b.duration);
-  const sortByPrice = (a, b) => a.price - b.price;
-
-  const getDurationInMinutes = (duration) => {
-    const [hours, minutes] = duration.split("h").map((part) => parseInt(part));
-    return hours * 60 + minutes;
-  };
-
-  const sortFlights = (flights, sortBy) => {
-    switch (sortBy) {
-      case "departureTime":
-        return flights.slice().sort(sortByDepartureTime);
-      case "arrivalTime":
-        return flights.slice().sort(sortByArrivalTime);
-      case "duration":
-        return flights.slice().sort(sortByDuration);
-      case "price":
-        return flights.slice().sort(sortByPrice);
-      default:
-        return flights.slice();
-    }
-  };
-
   const handleSort = (sortBy) => {
+    const { value } = sortBy;
     if (!oneWay) {
       if (!selectedGoingFlight.id) {
-        const sortedFlights = sortFlights(goingFlights, sortBy);
+        const sortedFlights = sortFlights(goingFlights, value);
         setGoingFlights(sortedFlights);
       } else {
-        const sortedFlights = sortFlights(returnFlights, sortBy);
+        const sortedFlights = sortFlights(returnFlights, value);
         setReturnFlights(sortedFlights);
       }
     } else {
-      const sortedFlights = sortFlights(goingFlights, sortBy);
+      const sortedFlights = sortFlights(goingFlights, value);
       setGoingFlights(sortedFlights);
     }
   };
@@ -135,12 +109,7 @@ function App() {
           />
           <div className="flex flex-col gap-2 w-full">
             <div className="w-full lg:container mx-auto">
-              <div className="mt-4 mb-2">
-                <DropdownMenu
-                  onSortChange={(sortBy) => handleSort(sortBy)}
-                  className="ml-auto"
-                />
-              </div>
+              <FilterDropdown onSort={handleSort} />
               <div className="mb-2 py-2 rounded-t-md w-full bg-teal-50 border border-teal-400 text-center text-black font-bold">
                 {oneWay
                   ? "Departure Flights"

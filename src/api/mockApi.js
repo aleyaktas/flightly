@@ -125,7 +125,7 @@ export const mockFlights = [
     arrivalTime: "2024-07-01T15:45",
     duration: "1h 15m",
     price: 190,
-    airline: "Turkish Airlines",
+    airline: "Pegasus Airlines",
   },
   {
     id: 13,
@@ -145,7 +145,7 @@ export const mockFlights = [
     arrivalTime: "2024-07-01T16:45",
     duration: "1h 15m",
     price: 300,
-    airline: "Turkish Airlines",
+    airline: "SunExpress",
   },
   {
     id: 15,
@@ -175,7 +175,7 @@ export const mockFlights = [
     arrivalTime: "2024-07-01T19:45",
     duration: "1h 15m",
     price: 200,
-    airline: "Turkish Airlines",
+    airline: "AnadoluJet",
   },
   {
     id: 18,
@@ -185,7 +185,7 @@ export const mockFlights = [
     arrivalTime: "2024-07-01T19:45",
     duration: "1h 15m",
     price: 200,
-    airline: "Turkish Airlines",
+    airline: "Pegasus Airlines",
   },
   {
     id: 19,
@@ -195,7 +195,7 @@ export const mockFlights = [
     arrivalTime: "2024-07-01T19:45",
     duration: "1h 15m",
     price: 200,
-    airline: "Turkish Airlines",
+    airline: "SunExpress",
   },
   {
     id: 20,
@@ -215,7 +215,7 @@ export const mockFlights = [
     arrivalTime: "2024-07-01T19:45",
     duration: "1h 15m",
     price: 200,
-    airline: "Turkish Airlines",
+    airline: "Pegasus Airlines",
   },
   {
     id: 22,
@@ -245,7 +245,7 @@ export const mockFlights = [
     arrivalTime: "2024-07-01T19:45",
     duration: "1h 15m",
     price: 200,
-    airline: "Turkish Airlines",
+    airline: "Pegasus Airlines",
   },
   {
     id: 25,

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Controller, useForm } from "react-hook-form";
-import { turkishAirports } from "../api/mockApi";
 import Select from "react-select";
+import { turkishAirports } from "../api/mockApi";
+import { selectCityStyles } from "../helpers/customStyles";
 
 const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
   const [today, setToday] = useState();
@@ -46,8 +47,10 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
             <Select
               {...field}
               classNamePrefix="select"
+              placeholder="From"
               isClearable
               isSearchable
+              styles={selectCityStyles}
               options={turkishAirports}
               value={turkishAirports.find((c) => c.value === field.value)}
               onChange={(val) => field.onChange(val ? val.value : "")}
@@ -73,8 +76,10 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
             <Select
               {...field}
               classNamePrefix="select"
+              placeholder="To"
               isClearable
               isSearchable
+              styles={selectCityStyles}
               options={turkishAirports}
               value={turkishAirports.find((c) => c.value === field.value)}
               onChange={(val) => field.onChange(val ? val.value : "")}
@@ -106,7 +111,7 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
               new Date(value) >= new Date() ||
               "Departure date must be today or in the future",
           })}
-          className="pl-2 block w-full h-9 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
+          className="pl-2 block w-full h-9 outline-none border border-gray-300 rounded-md shadow-sm focus:border focus:border-teal-500"
         />
         <div className="flex mt-2 lg:self-start min-w-fit">
           <input
@@ -148,7 +153,7 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
                 new Date(value) >= new Date(getValues("departureDate")) ||
                 "Return date must be equal to or after departure date",
             }))}
-          className="pl-2 h-9 block w-full border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
+          className="pl-2 block w-full h-9 outline-none border border-gray-300 rounded-md shadow-sm focus:border focus:border-teal-500"
           disabled={oneWay}
         />
 
@@ -161,7 +166,7 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
 
       <button
         type="submit"
-        className="bg-teal-500 h-9 col-span-2 min-[530px]:col-span-1 text-white my-auto lg:my-0 text-center rounded-md shadow-sm hover:bg-teal-600 w-full w-min-32 px-4"
+        className="bg-teal-500 h-9 col-span-2 min-[530px]:col-span-1 text-white my-auto lg:my-0 text-center rounded-md shadow-sm hover:bg-teal-00 w-full w-min-32 px-4"
       >
         Search
       </button>
