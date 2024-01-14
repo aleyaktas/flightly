@@ -144,7 +144,7 @@ export const mockFlights = [
     departureTime: "2024-07-01T15:30",
     arrivalTime: "2024-07-01T16:45",
     duration: "1h 15m",
-    price: 190,
+    price: 300,
     airline: "Turkish Airlines",
   },
   {
@@ -156,5 +156,15 @@ export const mockFlights = [
     duration: "1h 15m",
     price: 210,
     airline: "AnadoluJet",
+  },
+  {
+    id: 16,
+    departureAirport: "ESB",
+    arrivalAirport: "IST",
+    departureTime: "2024-07-01T18:30",
+    arrivalTime: "2024-07-01T19:45",
+    duration: "1h 15m",
+    price: 200,
+    airline: "Turkish Airlines",
   },
 ];

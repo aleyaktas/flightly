@@ -25,10 +25,10 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 w-64 mt-20"
+      className="flex flex-row w-full items-center mt-8 lg:flex-col gap-4 lg:w-64 lg:mt-20"
     >
-      <p className="font-bold text-lg">Your Search</p>
-      <div>
+      <p className="font-bold text-lg hidden lg:block">Your Search</p>
+      <div className="flex-auto min-w-32 w-full">
         <label
           htmlFor="from"
           className="block text-sm font-medium text-gray-700"
@@ -53,7 +53,7 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
         )}
       </div>
 
-      <div>
+      <div className="flex-auto min-w-32 w-full">
         <label htmlFor="to" className="block text-sm font-medium text-gray-700">
           To
         </label>
@@ -75,23 +75,7 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
         )}
       </div>
 
-      <div className="flex items-center">
-        <input
-          id="one-way"
-          type="checkbox"
-          checked={oneWay}
-          onChange={() => setOneWay(!oneWay)}
-          className="w-4 h-4 bg-gray-100 border-gray-300 rounded "
-        />
-        <label
-          htmlFor="one-way"
-          className="ml-2 block text-sm font-medium text-gray-700"
-        >
-          One way
-        </label>
-      </div>
-
-      <div>
+      <div className="flex-auto min-w-32 w-full">
         <label
           htmlFor="departure"
           className="block text-sm font-medium text-gray-700"
@@ -119,7 +103,7 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
       </div>
 
       {!oneWay && (
-        <div>
+        <div className="flex-auto min-w-32 w-full">
           <label
             htmlFor="return"
             className="block text-sm font-medium text-gray-700"
@@ -146,9 +130,25 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
         </div>
       )}
 
+      <div className="flex items-center">
+        <input
+          id="one-way"
+          type="checkbox"
+          checked={oneWay}
+          onChange={() => setOneWay(!oneWay)}
+          className="w-4 h-4 bg-gray-100 border-gray-300 rounded"
+        />
+        <label
+          htmlFor="one-way"
+          className="ml-2 block text-sm font-medium text-gray-700"
+        >
+          One way
+        </label>
+      </div>
+
       <button
         type="submit"
-        className="bg-teal-800 text-white h-12 text-center rounded-md shadow-sm hover:bg-teal-900"
+        className="bg-teal-500 mt-auto text-white h-12 text-center rounded-md shadow-sm hover:bg-teal-600 w-full w-min-32 px-4 lg:flex-auto"
       >
         Search
       </button>

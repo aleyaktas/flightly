@@ -23,17 +23,21 @@ const FlightCard = ({ flight, onSelect, onRemove }) => {
     duration,
     price,
   } = flight;
-
+  console.log(onRemove);
   const airlineImageUrl = airlineImageMap[airline];
-
   return (
     <div
-      className="w-full bg-white shadow-md rounded-lg px-14 py-12 flex items-center justify-center cursor-pointer relative"
+      className={`w-full bg-white shadow-md rounded-lg p-12 flex gap-2 items-center justify-center cursor-pointer relative ${
+        !onSelect && "border border-teal-500"
+      }`}
       onClick={() => onSelect && onSelect(flight)}
     >
-      {onRemove && (
-        <button className="absolute top-2 right-2" onClick={onRemove}>
-          <CloseIcon className="w-6 h-6 text-red-500 hover:text-red-700" />
+      {!onSelect && (
+        <button
+          className={`absolute top-2 right-2 ${!onRemove && "opacity-50"}`}
+          onClick={onRemove}
+        >
+          <CloseIcon className="w-6 h-6 text-teal-400 hover:text-teal-500" />
         </button>
       )}
       <div className="flex gap-2  w-1/3 items-center">
@@ -68,7 +72,7 @@ const FlightCard = ({ flight, onSelect, onRemove }) => {
           <div className="text-sm text-gray-600">{arrivalAirport}</div>
         </div>
       </div>
-      <p className="font-bold text-rose-800 text-xl w-1/3 text-end">
+      <p className="font-bold text-rose-800 text-lg lg:text-xl w-1/3 text-end">
         {price} ₺
       </p>
     </div>
