@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { turkishAirports } from "../api/mockApi";
+import Select from "react-select";
 
 const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
   const [today, setToday] = useState();
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -25,57 +27,68 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-row w-full items-center mt-8 lg:flex-col gap-4 lg:w-64 lg:mt-20"
+      className="grid grid-cols-card auto-rows-card justify-center w-full mt-8 lg:flex lg:flex-col lg:justify-normal gap-4 lg:w-64 lg:mt-20"
     >
       <p className="font-bold text-lg hidden lg:block">Your Search</p>
-      <div className="flex-auto min-w-32 w-full">
+      <div>
         <label
           htmlFor="from"
           className="block text-sm font-medium text-gray-700"
         >
           From
         </label>
-        <select
-          id="from"
+
+        <Controller
           name="from"
-          {...register("from", { required: "Please select a city" })}
-          className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
-        >
-          <option value="">Select City</option>
-          {turkishAirports.map((airport, index) => (
-            <option key={index} value={airport.code}>
-              {airport.city} ({airport.code})
-            </option>
-          ))}
-        </select>
+          control={control}
+          rules={{ required: "This field is required" }}
+          render={({ field }) => (
+            <Select
+              {...field}
+              classNamePrefix="select"
+              isClearable
+              isSearchable
+              options={turkishAirports}
+              value={turkishAirports.find((c) => c.value === field.value)}
+              onChange={(val) => field.onChange(val ? val.value : "")}
+            />
+          )}
+        />
         {errors.from && (
-          <span className="text-red-500 text-sm">{errors.from.message}</span>
+          <p className="text-red-500 text-sm w-24 lg:w-full">
+            {errors.from.message}
+          </p>
         )}
       </div>
 
-      <div className="flex-auto min-w-32 w-full">
+      <div>
         <label htmlFor="to" className="block text-sm font-medium text-gray-700">
           To
         </label>
-        <select
-          id="to"
+        <Controller
           name="to"
-          {...register("to", { required: "Please select a city" })}
-          className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
-        >
-          <option value="">Select City</option>
-          {turkishAirports.map((airport, index) => (
-            <option key={index} value={airport.code}>
-              {airport.city} ({airport.code})
-            </option>
-          ))}
-        </select>
+          control={control}
+          rules={{ required: "This field is required" }}
+          render={({ field }) => (
+            <Select
+              {...field}
+              classNamePrefix="select"
+              isClearable
+              isSearchable
+              options={turkishAirports}
+              value={turkishAirports.find((c) => c.value === field.value)}
+              onChange={(val) => field.onChange(val ? val.value : "")}
+            />
+          )}
+        />
         {errors.to && (
-          <span className="text-red-500 text-sm">{errors.to.message}</span>
+          <p className="text-red-500 text-sm w-24 lg:w-full">
+            {errors.to.message}
+          </p>
         )}
       </div>
 
-      <div className="flex-auto min-w-32 w-full">
+      <div>
         <label
           htmlFor="departure"
           className="block text-sm font-medium text-gray-700"
@@ -93,62 +106,62 @@ const SearchCard = ({ onSearch, oneWay, setOneWay }) => {
               new Date(value) >= new Date() ||
               "Departure date must be today or in the future",
           })}
-          className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
+          className="pl-2 block w-full h-9 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
         />
+        <div className="flex mt-2 lg:self-start min-w-fit">
+          <input
+            id="one-way"
+            type="checkbox"
+            checked={oneWay}
+            onChange={() => setOneWay(!oneWay)}
+            className="w-4 h-4 bg-gray-100 border-gray-300 rounded"
+          />
+          <label
+            htmlFor="one-way"
+            className="ml-2 block text-sm font-medium text-gray-700"
+          >
+            One way
+          </label>
+        </div>
         {errors.departureDate && (
-          <span className="text-red-500 text-sm">
+          <p className="text-red-500 text-sm w-24 lg:w-full">
             {errors.departureDate.message}
-          </span>
+          </p>
         )}
       </div>
 
-      {!oneWay && (
-        <div className="flex-auto min-w-32 w-full">
-          <label
-            htmlFor="return"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Return
-          </label>
-          <input
-            type="date"
-            id="return"
-            name="returnDate"
-            min={getValues("departureDate") || today}
-            {...register("returnDate", {
+      <div>
+        <label
+          htmlFor="return"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Return
+        </label>
+        <input
+          type="date"
+          id="return"
+          name="returnDate"
+          min={getValues("departureDate") || today}
+          {...(!oneWay &&
+            register("returnDate", {
               validate: (value) =>
                 new Date(value) >= new Date(getValues("departureDate")) ||
                 "Return date must be equal to or after departure date",
-            })}
-            className="mt-1 block w-full h-12 border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
-          />
-          {errors.returnDate && (
-            <span className="text-red-500 text-sm">
-              {errors.returnDate.message}
-            </span>
-          )}
-        </div>
-      )}
-
-      <div className="flex items-center">
-        <input
-          id="one-way"
-          type="checkbox"
-          checked={oneWay}
-          onChange={() => setOneWay(!oneWay)}
-          className="w-4 h-4 bg-gray-100 border-gray-300 rounded"
+            }))}
+          className="pl-2 h-9 block w-full border-gray-300 rounded-md shadow-sm focus:outline-teal-700 focus:outline-1"
+          disabled={oneWay}
         />
-        <label
-          htmlFor="one-way"
-          className="ml-2 block text-sm font-medium text-gray-700"
-        >
-          One way
-        </label>
+
+        {errors.returnDate && !oneWay && (
+          <p className="text-red-500 text-sm w-24 lg:w-full">
+            {errors.returnDate.message}
+          </p>
+        )}
       </div>
 
       <button
         type="submit"
-        className="bg-teal-500 mt-auto text-white h-12 text-center rounded-md shadow-sm hover:bg-teal-600 w-full w-min-32 px-4 lg:flex-auto"
+        className="bg-teal-500 h-9 col-span-2 min-[530px]:col-span-1 text-white my-auto lg:my-0 text-center rounded-md shadow-sm hover:bg-teal-600 w-full w-min-32 px-4"
       >
         Search
       </button>

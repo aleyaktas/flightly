@@ -27,7 +27,7 @@ const FlightCard = ({ flight, onSelect, onRemove }) => {
   const airlineImageUrl = airlineImageMap[airline];
   return (
     <div
-      className={`w-full bg-white shadow-md rounded-lg p-12 flex gap-2 items-center justify-center cursor-pointer relative ${
+      className={`w-full bg-white shadow-md rounded-lg px-4 py-8 lg:p-12 flex flex-col min-[640px]:flex-row gap-2 items-center justify-center cursor-pointer relative ${
         !onSelect && "border border-teal-500"
       }`}
       onClick={() => onSelect && onSelect(flight)}
@@ -40,17 +40,17 @@ const FlightCard = ({ flight, onSelect, onRemove }) => {
           <CloseIcon className="w-6 h-6 text-teal-400 hover:text-teal-500" />
         </button>
       )}
-      <div className="flex gap-2  w-1/3 items-center">
+      <div className="flex gap-2 w-full lg:w-1/3 items-center justify-center">
         {airlineImageUrl && (
           <img
             src={airlineImageUrl}
-            className="w-8 h-8"
+            className="w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8"
             alt={`${airline} Logo`}
           />
         )}
         <div className="text-lg font-semibold">{airline}</div>
       </div>
-      <div className="flex w-1/3">
+      <div className="flex justify-center w-full lg:w-1/3">
         <div className="text-center">
           <div className="text-lg font-semibold">
             {departureTime.split("T")[1]}
@@ -59,9 +59,12 @@ const FlightCard = ({ flight, onSelect, onRemove }) => {
         </div>
         <div className="flex flex-col justify-center items-center">
           <div className="flex items-center">
-            <hr className="border-t border-gray-300 mx-2 w-16" />
-            <img src={Airplane} className="text-yellow-500 w-6 h-6" />
-            <hr className="border-t border-gray-300 mx-2 w-16" />
+            <hr className="border-t border-gray-300 mx-2 w-14 lg:w-16" />
+            <img
+              src={Airplane}
+              className="text-yellow-500 w-4 h-4 lg:w-6 lg:h-6"
+            />
+            <hr className="border-t border-gray-300 mx-2 w-14 lg:w-16" />
           </div>
           <p>{duration}</p>
         </div>
@@ -72,7 +75,7 @@ const FlightCard = ({ flight, onSelect, onRemove }) => {
           <div className="text-sm text-gray-600">{arrivalAirport}</div>
         </div>
       </div>
-      <p className="font-bold text-rose-800 text-lg lg:text-xl w-1/3 text-end">
+      <p className="font-bold text-rose-800 text-lg lg:text-xl w-full lg:w-1/3 text-end">
         {price} ₺
       </p>
     </div>
